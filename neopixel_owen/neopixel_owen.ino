@@ -19,14 +19,14 @@
 // strandtest example for more information on possible values.
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
-#define DELAYVAL 25 // Time (in milliseconds) to pause between pixels
+#define DELAYVAL 0 // Time (in milliseconds) to pause between pixels
 int y = 0;
 void setup() {
-  Serial.begin(9600); 
+  Serial.begin(9600);
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
   // Any other board, you can remove this part (but no harm leaving it):
 #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
-  clock_prescale_set(clock_div_1); 
+  clock_prescale_set(clock_div_1);
 #endif
   // END of Trinket-specific code.
 
@@ -34,43 +34,47 @@ void setup() {
 }
 
 void loop() {
- 
-    for (int x = 1; x < 256 ; x++) {
-      pixels.setPixelColor(y, pixels.Color(255, x, 0));
+
+  for (int x = 1; x < 256 ; x++) {
+    for (int y = 0; y < 7; y++) {
+      pixels.setPixelColor(y, pixels.Color(x, x, x));
       pixels.show();
       //   pixels.clear();
       Serial.println(x);
-      delay(DELAYVAL);
+     // delay(DELAYVAL);
 
-      if (x == 255) {
+     
+  }
+   if (x == 255) {
         pixels.setPixelColor(7, pixels.Color(255, 255, 255));
         pixels.show();
-        delay(1000);
+        delay(100);
       } else {
         pixels.setPixelColor(7, pixels.Color(0, 0, 0));
         pixels.show();
       }
     }
-    for (int x = 254; x > -1; x--) {
-      pixels.setPixelColor(y, pixels.Color(255, x, 0));
+  for (int x = 254; x > -1; x--) {
+    for (int y = 0; y < 7; y++) {
+      pixels.setPixelColor(y, pixels.Color(x, x, x));
       pixels.show();
       //  pixels.clear();
       Serial.println(x);
-      delay(DELAYVAL);
+   //  delay(DELAYVAL);
 
-      if (x == 0) {
+     
+    }
+     if (x == -45) {
         pixels.setPixelColor(7, pixels.Color(255, 255, 255));
         pixels.show();
-        delay(1000);
+        delay(100);
       } else {
         pixels.setPixelColor(7, pixels.Color(0, 0, 0));
         pixels.show();
       }
-    }
-
-
   }
 
+}
 
 
 
@@ -81,19 +85,21 @@ void loop() {
 
 
 
-  /*
-    for (int x = 0; x < NUMPIXELS-1 ; x++) {
-      pixels.setPixelColor(x, pixels.Color(0, 150, 0));
-      pixels.show();
-      pixels.clear();
 
-      delay(DELAYVAL);
-    }
-    for (int x = NUMPIXELS-1; x > 0; x--) {
-      pixels.setPixelColor(x, pixels.Color(0, 150, 0));
-      pixels.show();
-      pixels.clear();
 
-      delay(DELAYVAL);
-    }
-  */
+/*
+  for (int x = 0; x < NUMPIXELS-1 ; x++) {
+    pixels.setPixelColor(x, pixels.Color(0, 150, 0));
+    pixels.show();
+    pixels.clear();
+
+    delay(DELAYVAL);
+  }
+  for (int x = NUMPIXELS-1; x > 0; x--) {
+    pixels.setPixelColor(x, pixels.Color(0, 150, 0));
+    pixels.show();
+    pixels.clear();
+
+    delay(DELAYVAL);
+  }
+*/
